@@ -1,0 +1,20 @@
+---
+- hosts: all
+  remote_user: root
+  sudo: true
+tasks:
+  - name: uninstall nano
+    command: sudo apt-get purge nano
+
+  - name: Install vim
+    command: sudo apt-get install vim
+
+  - name: get the chrome package
+    command: sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+    - name: install the chrome package
+    command: sudo sudo apt install ./google-chrome-stable_current_amd64.deb
+
+  - name: update and upgrade
+    command: sudo sudo apt update && sudo apt-get upgrade
+    
