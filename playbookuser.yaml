@@ -1,0 +1,37 @@
+---
+- hosts: linuxsysadmins
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  connection: ssh
+  tasks:
+   - name: Add group "A" to remote server
+     group:
+       name: A
+       gid: 12345
+       state: present
+
+   - name: Add group "B" to remote server
+     group:
+       name: B
+       gid: 54321
+       state: present
+
+
+   - name: Add user "user2" to remote server
+     user:
+       name: user2
+       comment: "Privileged User"
+       uid: 12121
+       group: A,B
+       groups: A,B
+       append: yes
+       shell: /bin/bash
+     
+
+   - name: Remove user "user2" from remote server
+     user:
+       name: user2
+       state: absent
+       remove: yes
