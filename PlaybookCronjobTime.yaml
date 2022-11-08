@@ -1,0 +1,30 @@
+---
+  - hosts: all
+      remote_user: ansible
+      become: yes
+      become_method: sudo
+      gather_facts: no
+      connection: ssh
+      tasks:
+  - name: Run CRON job to upgrade apt every hour.
+       become: yes
+       become_method: sudo
+      cron:
+       name: "apt upgrade"
+       user: "root"
+       weekday: "*"
+       minute: "0"
+       hour: "hourly"
+       job: "apt upgrade"
+       state: present
+  - name: CRON job to write Timestamp in file
+       become: yes
+       become_method: sudo
+      cron: 
+       name: "Time Stamp every 5 minutes"
+       user: "root"
+       weekday: "*"
+       minute: "5,10,15,20,25,30,35,40,45,50,55,0"
+       hour: "*"
+       job: "timedatectl -a > ./tmp/datetime.txt"
+         

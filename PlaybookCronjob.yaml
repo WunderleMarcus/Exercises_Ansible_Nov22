@@ -1,0 +1,19 @@
+---
+  - hosts: all
+      remote_user: ansible
+      become: yes
+      become_method: sudo
+      gather_facts: no
+      connection: ssh
+      tasks:
+  - name: Run CRON job to upgrade apt every hour.
+       become: yes
+       become_method: sudo
+      cron:
+       name: "apt upgrade"
+       user: "root"
+       weekday: "*"
+       minute: "0"
+       hour: "hourly"
+       job: "apt upgrade"
+       state: present
